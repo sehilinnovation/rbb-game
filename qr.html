@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Red Bucket Biryani — QR Code</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&family=Rajdhani:wght@400;600;700&display=swap');
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: #f5f5f5;
+      display: flex; flex-direction: column; align-items: center;
+      justify-content: flex-start;
+      font-family: 'Rajdhani', sans-serif;
+      padding: 40px 20px 60px; min-height: 100vh;
+    }
+
+    .print-btn {
+      margin-bottom: 20px; padding: 12px 32px;
+      background: #e01f1f;
+      color: #fff; border: none; border-radius: 10px;
+      font-family: 'Nunito', sans-serif; font-size: .75rem; font-weight: 800;
+      letter-spacing: .06em; cursor: pointer;
+      box-shadow: 0 4px 16px rgba(224,31,31,.4);
+    }
+
+    .card {
+      position: relative; width: 380px; border-radius: 20px; overflow: hidden;
+      display: flex; flex-direction: column; align-items: center;
+      background: #e01f1f;
+      box-shadow: 0 8px 40px rgba(180,0,0,.35), 0 2px 8px rgba(0,0,0,.2);
+    }
+
+    /* Top header section — red */
+    .header-block {
+      width: 100%; background: #e01f1f;
+      display: flex; flex-direction: column; align-items: center;
+      padding: 28px 26px 22px;
+      position: relative;
+    }
+
+    /* White border like the logo */
+    .logo-border {
+      width: 86px; height: 86px;
+      background: #ffffff;
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 12px;
+      box-shadow: 0 2px 12px rgba(0,0,0,.2);
+    }
+
+    .logo-img { width: 80px; height: 80px; object-fit: cover; border-radius: 9px; }
+
+    .icon-row { display: flex; gap: 8px; font-size: 1.6rem; }
+
+    h1 {
+      font-family: 'Nunito', sans-serif; font-size: 1.7rem; font-weight: 900;
+      letter-spacing: -.01em; text-align: center; line-height: 1.15;
+      color: #ffffff; margin-bottom: 4px;
+    }
+
+    .tagline {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: .62rem; color: rgba(255,255,255,0.75);
+      letter-spacing: .22em; text-transform: uppercase;
+    }
+
+    /* White body section */
+    .body-block {
+      width: 100%; background: #ffffff;
+      display: flex; flex-direction: column; align-items: center;
+      padding: 20px 24px 0;
+    }
+
+    .scan-label {
+      font-size: .65rem; color: #e01f1f; letter-spacing: .16em;
+      text-transform: uppercase; margin-bottom: 12px; font-weight: 700;
+    }
+
+    .qr-wrap {
+      background: #fff; border-radius: 14px; padding: 10px;
+      border: 3px solid #e01f1f;
+      position: relative; margin-bottom: 16px;
+      box-shadow: 0 4px 20px rgba(224,31,31,.15);
+    }
+
+    .prizes-strip {
+      display: flex; gap: 6px; flex-wrap: wrap;
+      justify-content: center; margin-bottom: 16px; width: 100%;
+    }
+
+    .prize-chip {
+      background: #fff0f0; border: 1px solid rgba(224,31,31,.25);
+      border-radius: 20px; padding: 3px 10px;
+      font-size: .62rem; color: #c01010;
+      font-weight: 700; letter-spacing: .03em; white-space: nowrap;
+    }
+
+    .divider {
+      width: 100%; height: 2px;
+      background: #e01f1f;
+      opacity: .12; margin-bottom: 14px;
+    }
+
+    /* Red address block */
+    .address-block {
+      width: 100%; background: #e01f1f;
+      padding: 14px 24px 12px;
+      text-align: center;
+    }
+
+    .branch-name {
+      font-family: 'Nunito', sans-serif; font-size: 1rem; font-weight: 900;
+      color: #ffffff; letter-spacing: .01em; margin-bottom: 4px;
+    }
+
+    .location {
+      font-size: .68rem; color: rgba(255,255,255,.8);
+      letter-spacing: .03em; line-height: 1.6;
+    }
+
+    /* White footer */
+    .footer-strip {
+      width: 100%; background: #ffffff;
+      border-top: 2px solid #e01f1f;
+      padding: 8px 24px;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+
+    .footer-strip .dev { font-size: .58rem; color: #999; letter-spacing: .04em; }
+    .footer-strip .dev span { color: #e01f1f; font-weight: 800; }
+    .footer-strip .phone { font-size: .62rem; color: #e01f1f; font-weight: 700; letter-spacing: .04em; }
+
+    @page { size: 380px 640px; margin: 0; }
+
+    @media print {
+      * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+      html { width: 380px !important; height: 640px !important; margin: 0 !important; padding: 0 !important; }
+      body { width: 380px !important; min-height: 640px !important; background: #f5f5f5 !important;
+             margin: 0 !important; padding: 0 !important; display: block !important; overflow: visible !important; }
+      .print-btn { display: none !important; }
+      .card { width: 380px !important; border-radius: 0 !important; box-shadow: none !important; }
+    }
+  </style>
+</head>
+<body>
+
+  <button class="print-btn" onclick="window.print()">⬇ Download PDF</button>
+
+  <div class="card">
+
+    <!-- RED HEADER -->
+    <div class="header-block">
+      <div class="logo-border">
+        <img class="logo-img" src="logo.png" alt="Red Bucket Biryani"
+          onerror="this.parentElement.innerHTML='🍛';" />
+      </div>
+      <div class="icon-row" id="iconRow" style="display:none;">🍛 🪣</div>
+      <h1>Red Bucket Biryani</h1>
+      <div class="tagline">Every Bite, A Celebration</div>
+    </div>
+
+    <!-- WHITE BODY -->
+    <div class="body-block">
+      <div class="scan-label">⬇ Scan &amp; Win Exciting Prizes ⬇</div>
+
+      <div class="qr-wrap">
+        <div id="qrcode"></div>
+      </div>
+
+      <div class="prizes-strip">
+        <span class="prize-chip">🍛 Free Biryani</span>
+        <span class="prize-chip">🪣 Mini Bucket</span>
+        <span class="prize-chip">🥤 Cold Drink</span>
+        <span class="prize-chip">🍗 Chicken Piece</span>
+        <span class="prize-chip">💵 Cash Back</span>
+        <span class="prize-chip">🎁 Combo Deal</span>
+      </div>
+
+      <div class="divider"></div>
+    </div>
+
+    <!-- RED ADDRESS -->
+    <div class="address-block">
+      <div class="branch-name">Red Bucket Biryani — Nagpur</div>
+      <div class="location">📍 Mangalmurti Sq, Nagpur, Maharashtra 440036</div>
+    </div>
+
+    <!-- WHITE FOOTER -->
+    <div class="footer-strip">
+      <div class="dev">Developed by <span>SEHIL</span></div>
+      <div class="phone">📞 +91 96371 05208</div>
+    </div>
+
+  </div>
+
+<script>
+  new QRCode(document.getElementById('qrcode'), {
+    text: 'https://sehilinnovation.github.io/rbb-game/',
+    width: 220, height: 220,
+    colorDark: '#000000', colorLight: '#ffffff',
+    correctLevel: QRCode.CorrectLevel.H
+  });
+</script>
+</body>
+</html>
